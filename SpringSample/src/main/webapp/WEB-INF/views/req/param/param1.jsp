@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>param1</h1>
+	
+	<div>
+		<form action="/request03/param2" method="post">
+			<input type="text" name="name"> <br>
+			<input type="text" name="count"> <br>
+			<button type="sumbit">전송</button>
+		</form>
+	</div>
+	<div>
+		<a href="/request03/param2?name=abc&count=123">param2 로 요청이동</a>
+		<!--  	http://localhost:8080/request03/param2?name=abc&count=123 -->
+	</div>
+</body>
+</html>
