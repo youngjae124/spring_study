@@ -1,46 +1,31 @@
 package com.app.controller.quiz.quiz11;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/quiz11")
 public class Quiz11Controller {
-
-//	@GetMapping("/first")
-//	public String first(HttpServletRequest request, HttpSession session) {
-//		session.getAttribute("accessUrl");
-//		session.removeAttribute("accessUrl");
-//
-//		request.setAttribute("accessUrl", "/first");
-//		return "quiz/quiz11/targetPage";
-//	}
-//
-//	@GetMapping("/firsthide1")
-//	public String firsthide1(HttpServletRequest request) {
-//		request.setAttribute("accessUrl", "/firsthide1");
-//		return "quiz/quiz11/targetPage";
-//	}
-//
-//	@GetMapping("/firsthide2")
-//	public String firsthide2(HttpSession session) {
-//		session.setAttribute("accessUrl", "/first");
-//		return "redirect:/quiz11/first";
-//	}
-//
-//	@GetMapping("/clear")
-//	public String clear(HttpSession session) {
-//		session.invalidate();
-//		return "redirect:/quiz11/first";
-//	}
 	
-	//  ------------------------선생님 풀이-------------------------
 	@GetMapping("/quiz11/first")
-	public String first(Model model) {
+	public String first(Model model, HttpSession session) {
+
+		if(session.getAttribute("accessUrl") == null) {
+			//session.setAttribute("accessUrl", "/firsthide3");
+			model.addAttribute("accessUrl", "/first");			
+		} else { //세션에 accessUrl 들어있다 -> firsthide3 들렸다가 왔다!
+			
+			//model.addAttribute("accessUrl", "/first");
+			model.addAttribute("accessUrl", session.getAttribute("accessUrl"));
+			
+			//session 인식 사용 완료 -> 삭제
+			session.removeAttribute("accessUrl"); //특정 키값 삭제
+			//session.invalidate(); //세션 클리어 초기화
+		}
 		
-		model.addAttribute("accessUrl", "/first");
+
 		
 		return "quiz/quiz11/targetPage";
 	}
@@ -62,6 +47,18 @@ public class Quiz11Controller {
 		
 		//first 경로로 새로운 요청 request
 		//return "quiz/quiz11/targetPage";
+		return "redirect:/quiz11/first";
+	}
+	
+	@GetMapping("/quiz11/firsthide3")
+	public String firsthide3(Model model, HttpSession session) {
+		
+		//model.addAttribute("accessUrl", "/firsthide3");
+		
+		//firsthide3 들렸다가~ -> first 에 왔다!
+		//session 영역에 저장
+		session.setAttribute("accessUrl", "/firsthide3");
+		
 		return "redirect:/quiz11/first";
 	}
 }
