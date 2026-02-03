@@ -21,6 +21,8 @@ public class RoomController {
 	@GetMapping("/rooms")
 	public String rooms(Model model) {
 		
+		System.out.println("[Controller]호출 findRoomList");
+		
 		//호실정보
 		//Controller -> Service -> DAO <-> DB
 		List<Room> roomList = roomService.findRoomList();

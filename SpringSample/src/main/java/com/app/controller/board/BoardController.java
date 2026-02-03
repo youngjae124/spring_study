@@ -2,7 +2,7 @@ package com.app.controller.board;
 
 import org.springframework.stereotype.Controller;
 
-@Controller
+//@Controller
 public class BoardController {
 
 }
