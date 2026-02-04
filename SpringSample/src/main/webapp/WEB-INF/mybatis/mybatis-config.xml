@@ -10,7 +10,7 @@
 
 
 	<typeAliases>
-		<typeAlias type="com.app.dto.room.Room" alias=""/>
+		<typeAlias type="com.app.dto.room.Room" alias="Room"/>
 		
 	</typeAliases>
 
