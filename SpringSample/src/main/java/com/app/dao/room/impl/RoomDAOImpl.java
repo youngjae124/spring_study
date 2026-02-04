@@ -2,6 +2,8 @@ package com.app.dao.room.impl;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.app.dao.room.RoomDAO;
@@ -15,6 +17,10 @@ import com.app.dto.room.Room;
 @Repository
 public class RoomDAOImpl implements RoomDAO {
 
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	
 	@Override
 	public List<Room> findRoomList() {
 		System.out.println("[DAO] 호출 findRoomList");
@@ -27,7 +33,11 @@ public class RoomDAOImpl implements RoomDAO {
 	public int saveRoom(Room room) {
 		
 		// DB에  room 정보 전달 
-		return 0;
+						//실행할 쿼리가 위치한 식별자 , 매개변수
+						// namespace id
+		
+	int result = sqlSessionTemplate.insert("room_mapper.saveRoom",room);
+		return result;
 	}
 
 }

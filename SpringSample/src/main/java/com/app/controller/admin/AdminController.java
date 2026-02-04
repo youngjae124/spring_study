@@ -25,9 +25,11 @@ public class AdminController {
 		
 		//화면에서 입력한 값이 제대로 전달 됐는지
 		System.out.println(room);
-		int reusult = roomService.saveRoom(room);
+		int result = roomService.saveRoom(room);
 		//result 값
 		// 성공 ? 실패 ? -> 진행방향
+		
+		System.out.println("insert 처리 결과 적용 행의수 :"+  result);
 		
 		return "admin/registerRoom";
 	}
