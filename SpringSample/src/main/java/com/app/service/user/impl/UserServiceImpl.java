@@ -1,5 +1,7 @@
 package com.app.service.user.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +17,47 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int saveUser(User user) {
+
 		int result = userDAO.saveUser(user);
-		return result;
-	}
-	@Override
-	public int saveCustomerUser(User user) {
-		//관리자 계정 추가시 사용하는 메소드
-		//관리자 추가 로직
-		user.setUserType("CUS");
-		
-		int result = userDAO.saveUser(user);
-		return result;
-	}
-	@Override
-	public int saveAdminUser(User user) {
-		//관리자 계정 추가시 사용하는 메소드
-		//관리자 추가 로직
-		user.setUserType("ADM");
-		
-		int result = userDAO.saveUser(user);
+
 		return result;
 	}
 
-	
+	@Override
+	public int saveCustomerUser(User user) {
+		// 사용자 계정 추가시 사용하는 메소드
+		// 사용자 추가 로직
+		user.setUserType("CUS");
+		
+		int result = userDAO.saveUser(user);
+
+		return result;
+	}
+
+	@Override
+	public int saveAdminUser(User user) {
+		// 관리자 계정 추가시 사용하는 메소드
+		// 관리자 추가 로직
+		user.setUserType("ADM");
+		
+		int result = userDAO.saveUser(user);
+
+		return result;
+	}
+
+	@Override
+	public List<User> findUserList() {
+
+		List<User> userList = userDAO.findUserList();
+		
+		return userList;
+	}
 }
+
+
+
+
+
+
+
+
