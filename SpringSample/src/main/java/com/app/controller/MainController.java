@@ -12,4 +12,9 @@ public class MainController {
 		//return-> view 자원이름
 		return "main";
 	}
+	@RequestMapping({"/","/home","/index"})
+	public String root() {
+		
+		return "redirect:/main";
+	}
 }
