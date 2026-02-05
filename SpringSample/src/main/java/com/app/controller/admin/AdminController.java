@@ -94,6 +94,47 @@ public class AdminController {
 	}
 	
 	
+	@GetMapping("/admin/modifyRoom")
+	public String modifyRoom(HttpServletRequest request) {
+		String roomId = request.getParameter("roomId");
+		
+		if( roomId == null ) {
+			return "redirect:/admin/rooms";
+		}
+		
+		// PK roomId -> 그에 해당하는 객실 정보를 조회
+		Room room = roomService.findRoomByRoomId( Integer.parseInt(roomId) );
+		System.out.println("기존에 가지고 있던 정보");
+		System.out.println(room);
+		
+		// view -> 기본 데이터로 세팅
+		request.setAttribute("room", room);
+		
+		// 거기서 수정해라~
+		
+		return "admin/modifyRoom";
+	}
+	
+	@PostMapping("/admin/modifyRoom")
+	public String modifyRoomAction(@ModelAttribute Room room) {
+		
+		System.out.println("수정하려는 객실 정보");
+		System.out.println(room);
+		
+		int result = roomService.modifyRoom(room);
+		
+		if(result > 0) { //성공
+			//성공하면 해당 호실 상세페이지
+			return "redirect:/admin/room/" + room.getRoomId();
+		} else { //실패
+			//return "admin/modifyRoom";  //바로 화면 연결
+
+			//수정페이지로 다시 진입
+			return "redirect:/admin/modifyRoom?roomId=" + room.getRoomId();
+		}
+	}
+	
+	
 	
 	//관리자가 사용자계정관리 -> 사용자 계정 추가
 	@GetMapping("/admin/users/add")
