@@ -15,6 +15,8 @@ public class RoomServiceImpl implements RoomService {
 	@Autowired //자동 주입
 	RoomDAO roomDAO;
 	
+	
+	
 	//생성자를 통한 의존성 주입
 //	public RoomServiceImpl(RoomDAO roomDAO) {
 //		this.roomDAO = roomDAO;
@@ -53,6 +55,13 @@ public class RoomServiceImpl implements RoomService {
 		Room room = roomDAO.findRoomByRoomId(roomId);
 		
 		return room;
+	}
+	
+	@Override
+	public int removeRoom(int roomId) {
+		int result = roomDAO.removeRoom(roomId);
+		
+		return result;
 	}
 
 }
