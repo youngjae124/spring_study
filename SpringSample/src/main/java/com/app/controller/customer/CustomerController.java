@@ -123,6 +123,65 @@ public class CustomerController {
 		return "redirect:/main";
 	}
 	
+	//@GetMapping("/customer/modifyPw")
+	public String modifyPw(HttpSession session, Model model) {
+		
+		if( LoginManager.isLogin(session) ) {
+			String loginUserId = LoginManager.getLoginUserId(session);
+			User user = userService.findUserById(loginUserId);
+			model.addAttribute("user", user);
+		}
+		
+		return "customer/modifyPw";
+	}
+	
+	//@PostMapping("/customer/modifyPw")
+	public String modifyPwAction(User user) {
+		System.out.println(user);
+		
+		//비밀번호 변경 -> 연결 -> 서비스 -> dao 
+		
+		//User 객체정보 전체를 넘겨서 update
+		int result = userService.modifyUser(user);
+		
+		if(result > 0) {
+			return "redirect:/customer/mypage";
+		} else {
+			return "redirect:/customer/modifyPw";
+		}
+		
+	}
+	
+	@GetMapping("/customer/modifyPw")
+	public String modifyPw2() {
+		return "customer/modifyPw2";
+	}
+		
+	@PostMapping("/customer/modifyPw")
+	public String modifyPwAction2(User user, HttpSession session) {
+		
+		//사용자가 입력한 바꿀 비번 pw 만 존재
+		
+		//비번을 바꾸려는 사용자 ID 세팅 
+		
+		//mypage -> 비밀번호 변경 시도  
+		//--> 이미 로그인이 되어있다는 뜻 -> session 영역에 로그인 사용자 아이디
+		
+		// set pw = ?
+		// where id = ? 
+		//user.setId(session.getAttribute("loginUserId").toString());
+		user.setId(LoginManager.getLoginUserId(session));
+		
+		System.out.println(user);  //id 기존id  pw 바꾸려는 비번 
+		int result = userService.modifyUserPw(user);
+		
+		if(result > 0) {
+			return "redirect:/customer/mypage";
+		} else {
+			return "redirect:/customer/modifyPw";
+		}
+	}
+		
 }
 
 
