@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.app.common.CommonCode;
 import com.app.dto.user.User;
 import com.app.service.user.UserService;
+import com.app.util.LoginManager;
 
 @Controller
 public class CustomerController {
@@ -70,7 +71,8 @@ public class CustomerController {
 			System.out.println(loginUser);
 			
 			//로그인 성공 아이디 세션에 저장
-			session.setAttribute("loginUserId", loginUser.getId());
+			//session.setAttribute("loginUserId", loginUser.getId());
+			LoginManager.setSessionLoginUserId(session, loginUser.getId());
 			
 			//return "redirect:/main";
 
@@ -91,10 +93,12 @@ public class CustomerController {
 		
 		//로그인을 한 상태면? -> session 에 로그인 사용자 아이디가 존재
 		
-		if(session.getAttribute("loginUserId") != null) {
+		//if(session.getAttribute("loginUserId") != null) {
+		if( LoginManager.isLogin(session) ) {
 			
 			//								session 에서 로그인 사용자 ID 확인
-			String loginUserId = session.getAttribute("loginUserId").toString();
+			//String loginUserId = session.getAttribute("loginUserId").toString();
+			String loginUserId = LoginManager.getLoginUserId(session);
 			
 			// DB에서 user 데이터 조회
 			User user = userService.findUserById(loginUserId);
@@ -113,7 +117,8 @@ public class CustomerController {
 	public String signout(HttpSession session) {
 		
 		//세션 초기화
-		session.invalidate();
+		//session.invalidate();
+		LoginManager.logout(session);
 		
 		return "redirect:/main";
 	}
