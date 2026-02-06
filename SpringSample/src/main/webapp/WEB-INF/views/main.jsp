@@ -11,6 +11,8 @@
 	<br>
 	<br>
 	
-    <button type="button" onclick="location.href='/customer/signup'">회원가입 하러가기</button>
+    <button type="button" onclick="location.href='/customer/signup'">회원가입</button>
+    
+    	<button type="button" onClick="location.href='/customer/signin'">로그인</button>
 </body>
 </html>
